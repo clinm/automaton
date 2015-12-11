@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic test</title>
+</head>
+<body>
+
+<canvas id="displayId" width="100" height="100">
+    No canvas ? Such a shame !
+</canvas>
+
+<canvas id="second" width="250" height="200">
+    No canvas ? Such a shame !
+</canvas>
+
+<button onclick="stop()">Stop</button>
+<button onclick="start()">Start</button>
+
+
+<script src="../automaton.js"></script>
+<script>
+
+    var auto = Automaton.automata({surfaceId: 'displayId', numberElements: [10, 10], freqUpdate: 100});
+    var second= Automaton.automata({surfaceId: 'second', numberElements: [10, 10], colors: ['green', 'blue']});
+
+    function start(){
+    	auto.start();
+    	second.start();
+    }
+
+    function stop(){
+        auto.stop();
+        second.stop();
+    }
+
+</script>
+</body>
+</html>
