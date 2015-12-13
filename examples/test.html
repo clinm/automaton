@@ -3,37 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Basic test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body>
-
-<canvas id="displayId" width="100" height="100">
-    No canvas ? Such a shame !
-</canvas>
-
-<canvas id="second" width="250" height="200">
-    No canvas ? Such a shame !
-</canvas>
-
-<button onclick="stop()">Stop</button>
-<button onclick="start()">Start</button>
-
+<div class="container">
+    <div class="page-header">
+        <h1>Cellular Automaton <small>Conway's Game of Life</small></h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="displayId" width="250" height="250" class="center-block">
+                No canvas ? Such a shame !
+            </canvas>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="autoFast.start()">Start</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" disabled="disabled">New</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="autoFast.stop()">Stop</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <canvas id="second" width="250" height="250" class="center-block">
+                No canvas ? Such a shame !
+            </canvas>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="autoSlow.start()">Start</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" disabled="disabled">New</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="autoSlow.stop()">Stop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="../automaton.js"></script>
 <script>
-
-    var auto = Automaton.automata({surfaceId: 'displayId', numberElements: [10, 10], freqUpdate: 100});
-    var second= Automaton.automata({surfaceId: 'second', numberElements: [10, 10], colors: ['green', 'blue']});
-
-    function start(){
-    	auto.start();
-    	second.start();
-    }
-
-    function stop(){
-        auto.stop();
-        second.stop();
-    }
-
+    var autoFast = Automaton.automata({surfaceId: 'displayId', numberElements: [10, 10],colors:['#D1D1D1', '#DD5856'], freqUpdate: 100});
+    var autoSlow= Automaton.automata({surfaceId: 'second', numberElements: [10, 10], colors: ['#D1D1D1', '#DD5856'], freqUpdate:500});
 </script>
 </body>
 </html>
