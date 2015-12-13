@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cellular Automaton</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="basic.css">
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1>Cellular Automaton <small>Conway's Game of Life</small></h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="fastAutomaton" width="250" height="250" class="center-block">
+                No canvas ? Such a shame !
+            </canvas>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="start(0)">Start</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="newAuto(0)">New</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="stop(0)">Stop</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <canvas id="slowAutomaton" width="250" height="250" class="center-block">
+                No canvas ? Such a shame !
+            </canvas>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="start(1)">Start</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="newAuto(1);">New</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="stop(1)">Stop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../automaton.js"></script>
+<script>
+    var nElements = [10,10];
+
+    var autoConf = [
+        {surfaceId: 'fastAutomaton', numberElements: nElements ,colors:['#D1D1D1', '#DD5856'], freqUpdate: 100},
+        {surfaceId: 'slowAutomaton', numberElements: nElements, colors: ['#629F61', '#69394A'], freqUpdate:500}
+    ];
+
+    var auto = [
+        Automaton.automata(autoConf[0]),
+        Automaton.automata(autoConf[1])
+    ];
+
+
+    function newAuto(index){
+        auto[index].stop();
+        auto[index] = new Automaton.automata(autoConf[index]);
+    }
+
+    function start(index){
+        auto[index].start();
+    }
+
+    function stop(index){
+        auto[index].stop();
+    }
+</script>
+</body>
+</html>

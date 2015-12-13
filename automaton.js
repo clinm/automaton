@@ -191,14 +191,14 @@ this.Automaton = {};
          *  Stop when animating is set to false
          */
         var next = function(){
-            if(animating){
-                setTimeout(function(){
+            setTimeout(function(){
+                if(animating){
                     executeAll(conway.execute);
                     applyAll(conway.update);
                     displayAll();
                     next();
-                }, freqUpdate);
-            }
+                }
+            }, freqUpdate);
         };
 
         /**
