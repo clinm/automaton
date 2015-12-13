@@ -9,8 +9,9 @@ For now, I am only implementing the well-known [Conway's Game of Life](https://e
 ##Creation
 ```javascript
     var myAutomaton = Automaton.automata({surfaceId: 'displayId',     // HTML canvas' ID
-                        numberElements: [10, 10],   // number of elements on each dimension
-                        freqUpdate: 100}            // update frequency in ms
+                        numberElements: [10, 10],                     // number of elements on each dimension
+                        colors: ['#629F61', '#69394A'],               // color for each state
+                        freqUpdate: 100}                              // update frequency in ms
                         );                  
 ```
 ##Start and Stop
@@ -19,7 +20,10 @@ For now, I am only implementing the well-known [Conway's Game of Life](https://e
     myAutomaton.stop();
 ```
 
+#Example
+A correct example is now available in the examples directory. There are two intances of the automaton with each its own lifecycle, colors and frequency
+
 #Incoming features
 - [x] First implementation of a Cellular Automaton
-- [ ] Better looking interface
+- [x] Better looking interface
 - [ ] Add more Cellular Automaton
