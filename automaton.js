@@ -8,60 +8,86 @@ this.Automaton = {};
 (function automaton (automaton) {
 
     /**
+     * As describe in this article: https://en.wikipedia.org/wiki/Life-like_cellular_automaton
+     * Use the generic rules to create a lot of Automata
+     * @param {number[]} birth         array containing all numbers of neighbour correct to emerge
+     * @param {number[]} survival      array containing all numbers of neighbour needed to stay alive
+     * @returns {{execute: execute}}   a simple object containing a matching execute function for the Automaton
+     */
+    var lifeLike = function(birth, survival){
+        return {
+            execute: function(i, j, cell, auto){
+                var neigh = auto.getNeigh(i, j);
+                var alive = -cell.state;
+                neigh.forEach(function(e){
+                    alive = alive + e.state;
+                });
+
+                cell.nextState = 0;
+                if(cell.state == 0){
+                    if(birth.indexOf(alive) != -1){
+                        cell.nextState = 1;
+                    }
+                }else{
+                    if(survival.indexOf(alive) != -1){
+                        cell.nextState = 1;
+                    }
+                }
+            },
+            /**
+             *
+             * @param {number} i    line
+             * @param {number} j    column
+             * @returns {{x: number, y: number, state: number, nextState: number}}
+             */
+            init : function(i, j){
+                var s = Math.round(Math.random());
+                return {x: i, y: j, state: s, nextState: s};
+
+            },
+
+            /**
+             *
+             * @param x
+             * @param y
+             * @param cell
+             */
+            update : function(x, y, cell) {
+                cell.state = cell.nextState;
+            }
+        }
+    };
+
+    /**
      * Implementation of the Game of life
      * {@link https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life}
      * @type {{init: conway.init, execute: conway.execute, update: conway.update}}
      */
-    var conway = {
-        /**
-         *
-         * @param {number} i    line
-         * @param {number} j    column
-         * @returns {{x: number, y: number, state: number, nextState: number}}
-         */
-        init: function(i, j){
-            var s = Math.round(Math.random());
-            return {x: i, y: j, state: s, nextState: s};
-
-        },
-        /**
-         *
-         * @param i
-         * @param j
-         * @param cell
-         * @param auto
-         */
-        execute: function(i, j, cell, auto){
-            var neigh = auto.getNeigh(i, j);
-            var alive = -cell.state;
-            neigh.forEach(function(e){
-                alive = alive + e.state;
-            });
-
-            if(cell.state == 0){
-                if(alive == 3){
-                    cell.nextState = 1;
-                }else{
-                    cell.nextState = 0;
-                }
-            }else{
-                if(alive == 2 || alive == 3){
-                    cell.nextState = 1;
-                }else{
-                    cell.nextState = 0;
-                }
-            }
-        },
-        /**
-         *
-         * @param x
-         * @param y
-         * @param cell
-         */
-        update: function(x, y, cell) {
-            cell.state = cell.nextState;
-        }
+    var conway = function(){
+        return Object.create(lifeLike([3],[2, 3]));
     };
+
+    /**
+     * {@link https://en.wikipedia.org/wiki/Seeds_(cellular_automaton)}
+     * @returns {Object}
+     */
+    var seeds = function(){
+        return Object.create(lifeLike([2], []));
+    };
+
+    var replicator = function(){
+        return Object.create(lifeLike([1,3,5,7], [1,5,7]))
+    };
+
+    /**
+     * {@link https://en.wikipedia.org/wiki/Highlife_(cellular_automaton)}
+     * @returns {Object}
+     */
+    var highlife= function(){
+        return Object.create(lifeLike([3, 6],[2, 3]));
+    };
+
+    var CELLULARS = {'conway': conway(), 'seeds' : seeds(), 'replicator': replicator(), 'highlife': highlife()};
 
 
 
@@ -103,7 +129,7 @@ this.Automaton = {};
     /**
      *  Automaton. Main object that allows to execute a cellular automaton. For now, it only executes
      *  the well-know Conway Automaton
-     * @param  {{surfaceId: string, freqUpdate: number, numberElements: number[], colors: string[]}} params
+     * @param  {{surfaceId: string, freqUpdate: number, numberElements: number[], colors: string[], auto: string}} params
      * @returns {{}}
      */
     automaton.automata = function(params){
@@ -119,6 +145,8 @@ this.Automaton = {};
         var wStep = Math.floor(surfaceSize[0] / w);
         var h = params.numberElements[1];
         var hStep = Math.floor(surfaceSize[1] / h);
+
+        var cell = params.auto && CELLULARS[params.auto] || CELLULARS['conway'];
 
         var cells = [];
 
@@ -193,8 +221,8 @@ this.Automaton = {};
         var next = function(){
             setTimeout(function(){
                 if(animating){
-                    executeAll(conway.execute);
-                    applyAll(conway.update);
+                    executeAll(cell.execute);
+                    applyAll(cell.update);
                     displayAll();
                     next();
                 }
@@ -219,7 +247,7 @@ this.Automaton = {};
         };
 
         // init and display all for the first time
-        initAll(conway.init);
+        initAll(cell.init);
         displayAll();
 
         return that;

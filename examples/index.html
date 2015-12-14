@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h1>Cellular Automaton <small>Conway's Game of Life</small></h1>
+        <h1>Cellular Automatons <small>Life like patterns</small></h1>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -49,11 +49,11 @@
 
 <script src="../automaton.js"></script>
 <script>
-    var nElements = [10,10];
+    var nElements = [30, 30];
 
     var autoConf = [
-        {surfaceId: 'fastAutomaton', numberElements: nElements ,colors:['#D1D1D1', '#DD5856'], freqUpdate: 100},
-        {surfaceId: 'slowAutomaton', numberElements: nElements, colors: ['#629F61', '#69394A'], freqUpdate:500}
+        {surfaceId: 'fastAutomaton', numberElements: nElements ,colors:['#D1D1D1', '#DD5856'], freqUpdate: 100, auto:'replicator'},
+        {surfaceId: 'slowAutomaton', numberElements: nElements, colors: ['#629F61', '#69394A'], freqUpdate:500, auto:'highlife'}
     ];
 
     var auto = [
