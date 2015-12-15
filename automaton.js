@@ -255,15 +255,22 @@ this.Automaton = {};
        };
 
         /**
+         * Allow to execute only one iteration of the automaton.
+         */
+        that.nextIteration = function(){
+            executeAll(cell.execute);
+            applyAll(cell.update);
+            displayAll();
+        };
+
+        /**
          *  Make the animation, make one step each time it is called
          *  Stop when animating is set to false
          */
         var next = function(){
             setTimeout(function(){
                 if(animating){
-                    executeAll(cell.execute);
-                    applyAll(cell.update);
-                    displayAll();
+                    that.nextIteration();
                     next();
                 }
             }, freqUpdate);
