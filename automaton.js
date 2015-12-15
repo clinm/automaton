@@ -8,6 +8,18 @@ this.Automaton = {};
 (function automaton (automaton) {
 
     /**
+     * Coming from "Javascript- The good parts"
+     * @param value         The variable to test
+     * @returns {*|boolean} True if it is an array, false otherwise
+     */
+    var is_array = function (value) {
+        return value && typeof value === 'object' &&
+                    typeof value.length === 'number' &&
+                    typeof value.splice === 'function' &&
+                    !(value.propertyIsEnumerable('length'));
+    };
+
+    /**
      * As describe in this article: https://en.wikipedia.org/wiki/Life-like_cellular_automaton
      * Use the generic rules to create a lot of Automata
      * @param {number[]} birth         array containing all numbers of neighbour correct to emerge
@@ -99,6 +111,8 @@ this.Automaton = {};
      */
     var NUMBER_CELLS = 10;
 
+    var LIFE_LIKE_KEY_WORD = 'lifelike';
+
     /**
      * Simple way to draw a square on a canvas
      * @param surfaceId     HTML ID of the canvas
@@ -165,7 +179,14 @@ this.Automaton = {};
             hStep = Math.ceil(surfaceSize[1] / h);
         }
 
-        var cell = params.auto && CELLULARS[params.auto] || CELLULARS['conway'];
+        var cell = CELLULARS['conway'];
+        if(is_array(params.auto)){
+            if(params.auto[0] === LIFE_LIKE_KEY_WORD){
+                cell = Object.create(lifeLike(params.auto[1], params.auto[2]))|| cell;
+            }
+        }else{
+            cell = params.auto && CELLULARS[params.auto] || cell;
+        }
 
         var cells = [];
 
