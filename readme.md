@@ -13,7 +13,8 @@ var myAutomaton = Automaton.automata({surfaceId: 'displayId',     // HTML canvas
                     numberElements: [10, 10],                     // number of elements on each dimension
                     colors: ['#629F61', '#69394A'],               // color for each state
                     freqUpdate: 100},                             // update frequency in ms
-                    auto: 'conway'                                // default is conway, values available are in the list below
+                    auto: 'conway'                                // default is conway, values available are 
+                                                                  // in the list below
                     );                  
 ```
 The automatons available are :
@@ -35,6 +36,9 @@ var myAutomaton = Automaton.automata({surfaceId: 'displayId', auto: customLifeLi
 ```javascript
     myAutomaton.start();
     myAutomaton.stop();
+    
+    // compute only one iteration
+    myAutomaton.nextIteration();
 ```
 ##Default values
 Here is described the default value for each parameters
