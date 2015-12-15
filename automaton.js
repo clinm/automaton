@@ -87,9 +87,17 @@ this.Automaton = {};
         return Object.create(lifeLike([3, 6],[2, 3]));
     };
 
+    /**
+     * Containing all cells available
+     * @type {{conway: *, seeds: Object, replicator, highlife: Object}}
+     */
     var CELLULARS = {'conway': conway(), 'seeds' : seeds(), 'replicator': replicator(), 'highlife': highlife()};
 
-
+    /**
+     * Default number of cells on each axis
+     * @type {number}
+     */
+    var NUMBER_CELLS = 10;
 
     /**
      * Simple way to draw a square on a canvas
@@ -139,12 +147,20 @@ this.Automaton = {};
         var surfaceSize = drawSurface.getSize();
 
         var freqUpdate = params.freqUpdate || 1000;
-        var colors = params.colors || ['blue', 'white', 'green'];
+        var colors = params.colors || ['#D1D1D1', '#DD5856'];
 
-        var w = params.numberElements[0];
-        var wStep = Math.floor(surfaceSize[0] / w);
-        var h = params.numberElements[1];
-        var hStep = Math.floor(surfaceSize[1] / h);
+        // default values for number of cells
+        var w = Math.ceil(surfaceSize[0] / NUMBER_CELLS);
+        var wStep = 10;
+        var h = Math.ceil(surfaceSize[1] / NUMBER_CELLS);
+        var hStep = 10;
+
+        if(params.numberElements){
+            w =  params.numberElements[1];
+            wStep = Math.ceil(surfaceSize[0] / w);
+            h = params.numberElements[1];
+            hStep = Math.ceil(surfaceSize[1] / h);
+        }
 
         var cell = params.auto && CELLULARS[params.auto] || CELLULARS['conway'];
 
