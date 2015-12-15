@@ -137,7 +137,8 @@ this.Automaton = {};
     /**
      *  Automaton. Main object that allows to execute a cellular automaton. For now, it only executes
      *  the well-know Conway Automaton
-     * @param  {{surfaceId: string, freqUpdate: number, numberElements: number[], colors: string[], auto: string}} params
+     * @param  {{surfaceId: string, freqUpdate: number, numberElements: number[], colors: string[],
+      *             auto: string, circular: boolean}} params
      * @returns {{}}
      */
     automaton.automata = function(params){
@@ -148,6 +149,8 @@ this.Automaton = {};
 
         var freqUpdate = params.freqUpdate || 1000;
         var colors = params.colors || ['#D1D1D1', '#DD5856'];
+
+        var circular = params.circular || false;
 
         // default values for number of cells
         var w = Math.ceil(surfaceSize[0] / NUMBER_CELLS);
@@ -170,11 +173,12 @@ this.Automaton = {};
 
         /**
          * Explore the direct neighbourhood of the given cell and add all cell to the array
+         * This function is circular, meaning that a cell in (0,0) will see at (h-1,0) and (0,w-1)
          * @param x     x location on the automaton
          * @param y     y location on the automaton
          * @returns {Array} where each entry correspond to a cell
          */
-        that.getNeigh = function(x, y){
+        var getNeighCircular = function(x, y){
             var neigh = [];
             for(var i = x-1; i <= x+1; i++){
                 for(var j = y-1; j <= y+1; j++){
@@ -184,6 +188,26 @@ this.Automaton = {};
 
             return neigh;
         };
+
+        /**
+         * Explore the direct neighbourhood of the given cell and add all cell to the array
+         * This function is NOT circular
+         * @param x     x location on the automaton
+         * @param y     y location on the automaton
+         * @returns {Array} where each entry correspond to a cell, may have less than 8 entries
+         */
+        var getNeighNonCircular = function(x, y){
+            var neigh = [];
+            for(var i = Math.max(x-1, 0); i <= Math.min(x+1, w-1); i++){
+                for(var j = Math.max(y-1, 0); j <= Math.min(y+1, h-1); j++){
+                    neigh.push(cells[i][j]);
+                }
+            }
+
+            return neigh;
+        };
+
+        that.getNeigh = circular && getNeighCircular || getNeighNonCircular;
 
         /**
          * Apply the given action to all cell. Call action with its position and the current cell
