@@ -2,10 +2,10 @@
  * Created by Matthieu on 17/12/2015.
  */
 
-var autoLifeLike = [{'conway': 'Conway'},
-    {'seeds' : 'Seeds'},
-    {'replicator' : 'Replicator'},
-    {'highlife': 'Highlife'}];
+var autoLifeLike = [['conway', 'Conway'],
+                    ['seeds', 'Seeds'],
+                    ['replicator', 'Replicator'],
+                    ['highlife', 'Highlife']];
 
 var autoParams = {  surfaceId: 'canvas-automaton',
     numberElements: [50, 50],
@@ -17,6 +17,11 @@ var autoParams = {  surfaceId: 'canvas-automaton',
 
 var auto = Automaton.automata(autoParams);
 
+/**
+ * Each element of the option panel gets a listener and we
+ * put the value declared in autoParams in the inputs
+ *
+ */
 
 var autoType = document.getElementById('automaton-type');
 autoType.addEventListener('change', onAutomatonUpdate ,false);
@@ -40,15 +45,16 @@ autoCircular.addEventListener('change', onUpdateCircular, false);
 var automatonStartStop = document.getElementById('automaton-startStop');
 var running = false;
 
+autoLifeLike.forEach(function(a){
+    var opt = document.createElement('option');
+    opt.value = a[0];
+    opt.innerHTML = a[1];
+    autoType.appendChild(opt);
+});
 
-for(var a in autoLifeLike){
-    for(var k in autoLifeLike[a]){
-        var opt = document.createElement('option');
-        opt.value = k;
-        opt.innerHTML = autoLifeLike[a][k];
-        autoType.appendChild(opt);
-    }
-}
+/**
+ * Several functions to update values
+ */
 
 function onAutomatonUpdate(){
     autoParams.auto =  autoType.options[autoType.selectedIndex].value;
