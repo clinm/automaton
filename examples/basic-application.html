@@ -19,26 +19,21 @@
                 </div>
                 <div class="medium-6 columns">
                     <select id="automaton-type">
-                        <option value="conway">Conway</option>
-                        <option value="custom">Custom</option>
-                        <option value="highlife">HighLife</option>
-                        <option value="replicator">Replicator</option>
-                        <option value="seeds">Seeds</option>
                     </select>
                 </div>
             </fieldset>
         </div>
         <div class="row">
             <fieldset class="fieldset">
-                <legend>Custom Automaton</legend>
+                <legend>Dimension</legend>
                 <div class="medium-6 columns">
-                    <label>Birth
-                        <input type="text" placeholder="1,2,3">
+                    <label>Witdh
+                        <input id="automaton-width" type="text" placeholder="50">
                     </label>
                 </div>
                 <div class="medium-6 columns">
-                    <label>Survival
-                        <input type="text" placeholder="4,5,6">
+                    <label>Height
+                        <input id="automaton-height" type="text" placeholder="50">
                     </label>
                 </div>
             </fieldset>
@@ -61,9 +56,9 @@
         </div>
         <div class="row">
             <div class="expanded button-group">
-                <a class="button">Start</a>
-                <a class="button">Next</a>
-                <a class="button">New</a>
+                <a class="button" id="automaton-startStop" onclick="startStop();">Start</a>
+                <a class="button" onclick="next();">Next</a>
+                <a class="button" onclick="newAuto()">New</a>
             </div>
         </div>
     </div>
@@ -74,9 +69,7 @@
     </div>
 </div>
 <script src="../automaton.js"></script>
-<script>
-    Automaton.automata({surfaceId: 'canvas-automaton'});
+<script src="application.js"></script>
 
-</script>
 </body>
 </html>
