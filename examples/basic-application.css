@@ -1,0 +1,19 @@
+.container{
+    display: table;
+    height: 700px;
+    margin: 0 auto;
+}
+.container-menu {
+    float:left;
+
+    width: 400px;
+    height: 700px;
+    padding: 10px;
+    border-width: 0;
+    border-style: solid;
+    border-right-width: 2px;
+    border-color: #333333;
+}
+.container-automaton{
+    float: left;
+}

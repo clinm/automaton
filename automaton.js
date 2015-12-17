@@ -173,7 +173,7 @@ this.Automaton = {};
         var hStep = 10;
 
         if(params.numberElements){
-            w =  params.numberElements[1];
+            w =  params.numberElements[0];
             wStep = Math.ceil(surfaceSize[0] / w);
             h = params.numberElements[1];
             hStep = Math.ceil(surfaceSize[1] / h);
