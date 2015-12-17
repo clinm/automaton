@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic application</title>
+    <link rel="stylesheet" href="./examples/foundation.min.css">
+    <link rel="stylesheet" href="./examples/basic-application.css">
+
+</head>
+<body>
+<div class="container">
+    <div class="container-menu">
+        <h1>Options</h1>
+        <div class="row" >
+            <fieldset class="fieldset">
+                <legend>Choose your automaton</legend>
+                <div class="medium-6 columns">
+                    <label class="middle" for="automaton-type">Automaton</label>
+                </div>
+                <div class="medium-6 columns">
+                    <select id="automaton-type">
+                    </select>
+                </div>
+            </fieldset>
+        </div>
+        <div class="row">
+            <fieldset class="fieldset">
+                <legend>Dimension</legend>
+                <div class="medium-6 columns">
+                    <label>Witdh
+                        <input id="automaton-width" type="number" min="10" max="200" step="10" placeholder="50">
+                    </label>
+                </div>
+                <div class="medium-6 columns">
+                    <label>Height
+                        <input id="automaton-height"  type="number" min="10" max="200" step="10" placeholder="50">
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="row">
+            <fieldset class="fieldset">
+                <legend>Additional parameters</legend>
+                <div class="medium-6 columns">
+                    <label for="automaton-frequency" class="middle">Frequency</label>
+                </div>
+                <div class="medium-6 columns">
+                    <input id="automaton-frequency" type="number" value="1000" min="100" max="5000" step="100">
+                </div>
+                <div class="row">
+                    <div class="medium-6 columns">
+                        <input id="automaton-circular" type="checkbox"><label for="automaton-circular">Circular</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="row">
+            <div class="expanded button-group">
+                <a class="button" id="automaton-startStop" onclick="startStop();">Start</a>
+                <a class="button" onclick="next();">Next</a>
+                <a class="button" onclick="newAuto()">New</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-automaton">
+        <canvas id="canvas-automaton" width="700" height="700">
+
+        </canvas>
+    </div>
+</div>
+<script src="automaton.js"></script>
+<script src="./examples/application.js"></script>
+
+</body>
+</html>
