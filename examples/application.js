@@ -50,29 +50,28 @@ for(var a in autoLifeLike){
     }
 }
 
-function onAutomatonUpdate(e){
-    autoParams.auto = e.srcElement.options[e.srcElement.selectedIndex].value;
+function onAutomatonUpdate(){
+    autoParams.auto =  autoType.options[autoType.selectedIndex].value;
 }
 
-function onUpdateFrequency(e){
-    autoParams.freqUpdate = e.srcElement.value;
+function onUpdateFrequency(){
+    autoParams.freqUpdate = autoFreq.value;
 }
 
-function onUpdateWidth(e){
-    autoParams.numberElements[0] = e.srcElement.value;
+function onUpdateWidth(){
+    autoParams.numberElements[0] = autoWidth.value;
 }
 
-function onUpdateHeight(e){
-    autoParams.numberElements[1] = e.srcElement.value;
+function onUpdateHeight(){
+    autoParams.numberElements[1] = autoHeight.value;
 }
 
-function onUpdateCircular(e){
-    autoParams.circular = e.srcElement.checked;
+function onUpdateCircular(){
+    autoParams.circular = autoCircular.checked;
 }
 
 function newAuto(){
     auto.stop();
-    console.log(autoParams);
     auto = Automaton.automata(autoParams);
 
     running = false;
