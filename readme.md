@@ -53,11 +53,11 @@ Here is described the default value for each parameters
 | circular          | boolean           | true                      |
 
 #Example
-The index.html page shows the four automatons in action. 
+The index.html page in a basic application where all parameters are customisable. Enjoy !
 #Incoming features
 - [x] First implementation of a Cellular Automaton
 - [x] Better looking interface
 - [x] Add more Cellular Automaton
-- [ ] Interface allowing to change parameters on the fly
+- [x] Interface allowing to change parameters on the fly
 - [x] Additional parameters to generate custom life like automatons
 - [ ] Basics patterns for each automaton instead of random generation
