@@ -2,11 +2,6 @@
  * Created by Matthieu on 17/12/2015.
  */
 
-var autoLifeLike = [['conway', 'Conway'],
-                    ['seeds', 'Seeds'],
-                    ['replicator', 'Replicator'],
-                    ['highlife', 'Highlife']];
-
 var autoParams = {  surfaceId: 'canvas-automaton',
     numberElements: [50, 50],
     colors: ['#629F61', '#69394A'],
@@ -45,10 +40,10 @@ autoCircular.addEventListener('change', onUpdateCircular, false);
 var automatonStartStop = document.getElementById('automaton-startStop');
 var running = false;
 
-autoLifeLike.forEach(function(a){
+Object.keys(Automaton.lifeAutomatons).forEach(function(a){
     var opt = document.createElement('option');
-    opt.value = a[0];
-    opt.innerHTML = a[1];
+    opt.value = a;
+    opt.innerHTML = Automaton.lifeAutomatons[a].name;
     autoType.appendChild(opt);
 });
 
