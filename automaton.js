@@ -70,40 +70,24 @@ this.Automaton = {};
         }
     };
 
-    /**
-     * Implementation of the Game of life
-     * {@link https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life}
-     * @type {{init: conway.init, execute: conway.execute, update: conway.update}}
-     */
-    var conway = function(){
-        return Object.create(lifeLike([3],[2, 3]));
+    automaton.lifeAutomatons = {
+        'conway':       {name: 'Conway',        birth: [3],             survival: [2, 3]},
+        'seeds':        {name: 'Seeds',         birth: [2],             survival: []},
+        'replicator':   {name: 'Replicator',    birth: [1, 3, 5, 7],    survival: [1, 5, 7]},
+        'highlife':     {name: 'Highlife',      birth: [3, 6],          survival: [2, 3]}
     };
 
     /**
-     * {@link https://en.wikipedia.org/wiki/Seeds_(cellular_automaton)}
+     *  Given the key 'key' try to create the lifelike automaton associated in automaton.lifeAutomatons
+     *  if it can't find one, create a 'conway' as default.
+     * @param {string} key
      * @returns {Object}
      */
-    var seeds = function(){
-        return Object.create(lifeLike([2], []));
-    };
+    var getLifeAutomaton = function(key){
+        var auto = automaton.lifeAutomatons[key] || automaton.lifeAutomatons['conway'];
 
-    var replicator = function(){
-        return Object.create(lifeLike([1,3,5,7], [1,5,7]))
+        return Object.create(lifeLike(auto.birth, auto.survival));
     };
-
-    /**
-     * {@link https://en.wikipedia.org/wiki/Highlife_(cellular_automaton)}
-     * @returns {Object}
-     */
-    var highlife= function(){
-        return Object.create(lifeLike([3, 6],[2, 3]));
-    };
-
-    /**
-     * Containing all cells available
-     * @type {{conway: *, seeds: Object, replicator, highlife: Object}}
-     */
-    var CELLULARS = {'conway': conway(), 'seeds' : seeds(), 'replicator': replicator(), 'highlife': highlife()};
 
     /**
      * Default number of cells on each axis
@@ -179,13 +163,18 @@ this.Automaton = {};
             hStep = Math.ceil(surfaceSize[1] / h);
         }
 
-        var cell = CELLULARS['conway'];
+        //
+        // Default automaton is always conway
+        // params are such that a custom lifeLike automaton is given
+        // try to create it, if it fails: conway wins
+        //
+        var cell = getLifeAutomaton('conway');
         if(is_array(params.auto)){
             if(params.auto[0] === LIFE_LIKE_KEY_WORD){
                 cell = Object.create(lifeLike(params.auto[1], params.auto[2]))|| cell;
             }
         }else{
-            cell = params.auto && CELLULARS[params.auto] || cell;
+            cell = getLifeAutomaton(params.auto);
         }
 
         var cells = [];
