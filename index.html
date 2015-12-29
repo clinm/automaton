@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="container-menu">
+    <div class="container-menu" bind-obj="autoParams">
         <h1>Options</h1>
         <div class="row" >
             <fieldset class="fieldset">
@@ -18,7 +18,7 @@
                     <label class="middle" for="automaton-type">Automaton</label>
                 </div>
                 <div class="medium-6 columns">
-                    <select id="automaton-type">
+                    <select id="automaton-type" bind-val="auto">
                     </select>
                 </div>
             </fieldset>
@@ -27,13 +27,13 @@
             <fieldset class="fieldset">
                 <legend>Dimension</legend>
                 <div class="medium-6 columns">
-                    <label>Witdh
-                        <input id="automaton-width" type="number" min="10" max="200" step="10" placeholder="50">
+                    <label>Width
+                        <input id="automaton-width" type="number" min="10" max="200" step="10" placeholder="50" bind-val="numberElements.0">
                     </label>
                 </div>
                 <div class="medium-6 columns">
                     <label>Height
-                        <input id="automaton-height"  type="number" min="10" max="200" step="10" placeholder="50">
+                        <input id="automaton-height"  type="number" min="10" max="200" step="10" placeholder="50" bind-val="numberElements.1">
                     </label>
                 </div>
             </fieldset>
@@ -45,11 +45,12 @@
                     <label for="automaton-frequency" class="middle">Frequency</label>
                 </div>
                 <div class="medium-6 columns">
-                    <input id="automaton-frequency" type="number" value="1000" min="100" max="5000" step="100">
+                    <input id="automaton-frequency" type="number" value="1000" min="100" max="5000" step="100" bind-val="freqUpdate">
                 </div>
                 <div class="row">
                     <div class="medium-6 columns">
-                        <input id="automaton-circular" type="checkbox"><label for="automaton-circular">Circular</label>
+                        <input id="automaton-circular" type="checkbox" bind-val="circular">
+                        <label for="automaton-circular">Circular</label>
                     </div>
                 </div>
             </fieldset>
@@ -70,6 +71,7 @@
 </div>
 <script src="automaton.js"></script>
 <script src="websrc/script-index.js"></script>
+<script src="websrc/dataFormBinding.js"></script>
 
 </body>
 </html>
