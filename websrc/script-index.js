@@ -7,7 +7,9 @@ var autoParams = {  surfaceId: 'canvas-automaton',
     colors: ['#629F61', '#69394A'],
     freqUpdate: 1000,
     auto:'conway',
-    circular: false
+    circular: false,
+    // only used to link form to data
+    custom: ["lifelike", [],[]]
 };
 
 var auto = Automaton.automata(autoParams);
@@ -24,7 +26,39 @@ Object.keys(Automaton.lifeAutomatons).forEach(function(a){
     autoType.appendChild(opt);
 });
 
+// adding "custom"
+var opt = document.createElement('option');
+opt.value = "lifelike";
+opt.innerHTML = "Custom";
+autoType.appendChild(opt);
+
+var customAutomatonTable = document.getElementById('customAutomaton');
+
+autoType.addEventListener("change", function(event){
+    var src = event.target || event.srcElement;
+    if(src[src.selectedIndex].value === 'lifelike'){
+        customAutomatonTable.style.display = 'block';
+    }else{
+        customAutomatonTable.style.display = 'none';
+    }
+});
+
 function newAuto(){
+
+    if(autoParams.auto === 'lifelike'){
+        var tmp = ['lifelike', [], []];
+        for(var i = 0; i < 9; i++){
+            for(var j = 1; j < 3; j++){
+                if(autoParams.custom[j][i] === true){
+                    tmp[j].push(i);
+                }
+            }
+        }
+
+        autoParams.auto = tmp;
+    }else{
+
+    }
     auto.stop();
     auto = Automaton.automata(autoParams);
 

@@ -1,19 +1,23 @@
 .container{
     display: table;
-    height: 700px;
+    height: 100%;
     margin: 0 auto;
+    white-space: nowrap;
 }
 .container-menu {
     float:left;
-
-    width: 400px;
-    height: 700px;
+    width: 550px;
+    height: 100%;
     padding: 10px;
-    border-width: 0;
-    border-style: solid;
+    border: 0 solid #333333;
     border-right-width: 2px;
-    border-color: #333333;
 }
 .container-automaton{
+    margin-top: 25px;
     float: left;
+}
+
+.fieldset{
+    padding: 1.0rem;
+    margin: 0.2rem 0;
 }
