@@ -303,6 +303,16 @@ this.Automaton = {};
             animating = false;
         };
 
+        /**
+         * Live update of the frequency
+         * @param newFreq, new
+         */
+        that.updateFrequency = function(newFreq){
+            if(typeof newFreq === 'number'){
+                freqUpdate = newFreq;
+            }
+        };
+
         // init and display all for the first time
         initAll(cell.init);
         displayAll();

@@ -81,3 +81,10 @@ function startStop(){
 function next(){
     auto.nextIteration();
 }
+
+var automatonFrequency = document.getElementById('automaton-frequency');
+
+automatonFrequency.addEventListener('change', function(event){
+    var src = event.target || event.srcElement;
+    auto.updateFrequency(parseInt(src.value, 10));
+});

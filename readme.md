@@ -40,6 +40,15 @@ var myAutomaton = Automaton.automata({surfaceId: 'displayId', auto: customLifeLi
     // compute only one iteration
     myAutomaton.nextIteration();
 ```
+
+##Frequency's update
+```javascript
+    myAutomaton.start();
+    myAutomaton.updateFrequency(10);
+    myAutomaton.updateFrequency(100);
+    myAutomaton.updateFrequency(1000);
+    myAutomaton.stop();
+```
 ##Default values
 Here is described the default value for each parameters
 
@@ -50,7 +59,7 @@ Here is described the default value for each parameters
 | numberElements    | [number, number]) | cells 10px*10px computed  |
 | colors            | [string, string]  | ['#D1D1D1', '#DD5856']    |
 | auto              | string            | conway                    |
-| circular          | boolean           | true                      |
+| circular          | boolean           | false                     |
 
 #Example
 The index.html page in a basic application where all parameters are customisable. Enjoy !
